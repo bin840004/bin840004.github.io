@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Bin的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Bin的个人博客">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Bin的个人博客">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Bin的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Bin的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-02-基本的Shell命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/27/02-%E5%9F%BA%E6%9C%AC%E7%9A%84Shell%E5%91%BD%E4%BB%A4/" class="article-date">
+  <time datetime="2020-07-27T01:33:58.880Z" itemprop="datePublished">2020-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/27/02-%E5%9F%BA%E6%9C%AC%E7%9A%84Shell%E5%91%BD%E4%BB%A4/">02-基本的Shell命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="基本的-Shell-命令"><a href="#基本的-Shell-命令" class="headerlink" title="基本的 Shell 命令"></a>基本的 Shell 命令</h1><h2 id="零、文件系统"><a href="#零、文件系统" class="headerlink" title="零、文件系统"></a>零、文件系统</h2><ul>
+<li>说明：<ul>
+<li>文件系统就是操作管理存储设备或分区上的文件的方法和数据结构，也就是存储设备上组织文件的方式。</li>
+<li>操作系统中负责管理和存储文件信息的软件机构叫文件管理系统，简称为文件系统。</li>
+</ul>
+</li>
+<li>常见文件系统<ul>
+<li>fat16(MS-DOS 6.X)，分区最大2G</li>
+<li>fat32(windows 95)，单个文件最大4G，性能较弱，容易产生碎片</li>
+<li>ntfs(window nt)，提升了fat32文件系统的稳定性</li>
+<li>ext4(Linux)，扩展型日志文件系统</li>
+<li>hfs[+] (Mac)，苹果设备的文件系统</li>
+<li>exfat(win/mac/linux)，可以支持4G以上的单个文件，适合于闪存</li>
+</ul>
+</li>
+</ul>
+<h2 id="一、Shell-是个什么鬼"><a href="#一、Shell-是个什么鬼" class="headerlink" title="一、Shell 是个什么鬼"></a>一、Shell 是个什么鬼</h2><ul>
+<li><p>Kernel</p>
+<p>  Kernel 是操作系统的核心，直接与硬件打交道，处理很多底层的事情。</p>
+<p>  一般禁止普通用户直接操作，外部程序想要调用内核功能需要使用 “系统调用” 的接口</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌────────────────────────────────┐</span><br><span class="line">│              User              │</span><br><span class="line">├────────────────────────────────┤</span><br><span class="line">│      Shell    |  Application   │</span><br><span class="line">│     ┌────────────────────┐     │</span><br><span class="line">│     │       Kernel       │     │</span><br><span class="line">│     │    ┌──────────┐    │     │</span><br><span class="line">│     │    │ Hardware │    │     │</span><br><span class="line">└─────┴────┴──────────┴────┴─────┘</span><br><span class="line">\____ ____&#x2F;</span><br><span class="line">     V</span><br><span class="line">    OS</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Shell</p>
+<p>  Shell 是一个应用程序，它连接了用户和 Linux 内核，让用户能够更加高效、安全、低成本地使用 Linux 内核，这就是 Shell 的本质。</p>
+<p>  Shell 一般分为 “用户界面 (GUI)” 和 “命令行 (CLI)” 两种</p>
+</li>
+<li><p>常见的 GUI Shell</p>
+<ul>
+<li>Gnome</li>
+<li>KDE</li>
+<li>Xface</li>
+</ul>
+</li>
+<li><p>常见的 CLI Shell</p>
+<ul>
+<li>sh: Bourne shell, 史蒂夫·伯恩在贝尔实验室时编写。1978年随Version 7 Unix首次发布。</li>
+<li>csh: C shell, 比尔·乔伊在加州大学伯克利分校时编写。1979年随BSD首次发布。</li>
+<li>bash: Bourne-Again shell, 1987年由布莱恩·福克斯为了GNU计划而编写。原先是计划用在GNU操作系统上，但能运行于大多数类Unix系统的操作系统之上，包括Linux 与 MacOS 都将它作为默认shell。是应用最广的 Shell。</li>
+<li>zsh: Z shell, 名称的含义是 “The last shell you’ll ever need!”，Zsh 对 Bourne shell做出了大量改进，同时加入了其他shell的某些功能，强化了自动补全功能，还加入了插件机制，定制性非常高，功能最为强大。</li>
+<li>可以通过 <code>cat /etc/shells</code> 查看当前系统安装了哪些 Shell</li>
+<li><code>yum install zsh -y</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="二、Bash-快捷键"><a href="#二、Bash-快捷键" class="headerlink" title="二、Bash 快捷键"></a>二、Bash 快捷键</h2><ul>
+<li><code>ctl + f</code> 前进一个字符</li>
+<li><code>ctl + b</code> 后退一个字符</li>
+<li><code>ctl + a</code> 回到行首</li>
+<li><code>ctl + e</code> 回到行尾</li>
+<li><code>ctl + w</code> 向左删除一个单词</li>
+<li><code>ctl + u</code> 向左删除全部</li>
+<li><code>ctl + k</code> 向右删除全部</li>
+<li><code>ctl + y</code> 粘贴上次删除的内容</li>
+<li><code>ctl + l</code> 清屏</li>
+</ul>
+<h2 id="三、目录结构"><a href="#三、目录结构" class="headerlink" title="三、目录结构"></a>三、目录结构</h2><p>在Windows中经常看到这样的文件路径: <code>C:\Users\Rich\Documents\test.doc</code>。这个文件路径表明了文件 test.doc 位于 C 磁盘分区中。</p>
+<p>Linux 采用了一种不同的方式, 在路径名中不使用驱动器盘符。<br>在 Linux 中，你会看到下面这种路径: <code>/home/user/Documents/test.doc</code>，路径本身并没有提供任何有关文件究竟存放在哪个物理磁盘上的信息。</p>
+<p>Linux虚拟目录中比较复杂的部分是它如何协调管理各个存储设备。在Linux PC上安装的第一块硬盘称为根驱动器。根驱动器包含了虚拟目录的核心，其他目录都是从那里开始构建的。</p>
+<p>Linux会在根驱动器上创建一些特别的目录，我们称之为挂载点(mount point)。挂载点是虚 拟目录中用于分配额外存储设备的目录。虚拟目录会让文件和目录出现在这些挂载点目录中，然 而实际上它们却存储在另外一个驱动器中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;                系统根目录，通常不会在这里存储文件</span><br><span class="line"> ├── boot        启动目录(引导区块)</span><br><span class="line"> │</span><br><span class="line"> ├── bin         系统二进制目录，存放普通用户级的 GNU 命令</span><br><span class="line"> ├── sbin        系统超级二进制目录，存放管理员级别的 GNU 命令</span><br><span class="line"> ├── usr         资源目录 (User System Resources)</span><br><span class="line"> │   ├── bin     用户二进制目录，存放用户级的 GNU 命令</span><br><span class="line"> │   └── sbin    用户超级二进制目录，存放管理员用户的 GNU 命令</span><br><span class="line"> │   └──》 local   存储第三方软件的</span><br><span class="line"> │       ├── bin</span><br><span class="line"> │       └── sbin</span><br><span class="line"> │</span><br><span class="line"> ├── opt         第三方开发的程序 (option), 意为&quot;选装&quot;</span><br><span class="line"> │</span><br><span class="line"> ├── dev         设备目录</span><br><span class="line"> │   ├── null    无底洞 (丢弃一切写入其中的数据)</span><br><span class="line"> │   ├── zero    无限 0 数据流 (常用来产生一个特定大小的空白文件, 或安全销毁文件)</span><br><span class="line"> │   ├── shm     内存文件夹</span><br><span class="line"> │   ├── random  随机数发生器</span><br><span class="line"> │   └── urandom 非阻塞的随机数发生器</span><br><span class="line"> │</span><br><span class="line"> ├──》 etc         系统配置文件目录 (et cetera)</span><br><span class="line"> ├── proc        当前的进程、运行状态信息的目录</span><br><span class="line"> │</span><br><span class="line"> ├──》 root        管理员家目录</span><br><span class="line"> ├──》 home        用户的家目录</span><br><span class="line"> │</span><br><span class="line"> ├── media       媒体目录，可移动媒体设备的常用挂载点，一般是系统自动挂载到这里</span><br><span class="line"> ├── mnt         挂载目录，另一个可移动媒体设备的常用挂载点，一般是留给用户手动挂载</span><br><span class="line"> │</span><br><span class="line"> ├── lib         系统库目录，存放系统和应用程序的库文件</span><br><span class="line"> │</span><br><span class="line"> ├── srv         服务目录，存放本地服务的相关文件</span><br><span class="line"> ├── sys         系统目录，存放系统硬件信息的相关文件</span><br><span class="line"> │</span><br><span class="line"> ├── run         运行目录，存放系统运作时的运行时数据</span><br><span class="line"> ├── tmp         临时目录，可以在该目录中创建和删除临时工作文件</span><br><span class="line"> └── var         可变目录，用以存放经常变化的文件，比如日志文件</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="四、目录操作"><a href="#四、目录操作" class="headerlink" title="四、目录操作"></a>四、目录操作</h2><ul>
+<li><p>绝对路径: <code>/usr/local/bin</code></p>
+</li>
+<li><p>相对路径: <code>../foo/bar</code></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cd</td>
+<td>回到home目录</td>
+</tr>
+<tr>
+<td>cd ~</td>
+<td>回到home目录</td>
+</tr>
+<tr>
+<td>cd -</td>
+<td>返回上次操作的目录</td>
+</tr>
+<tr>
+<td>cd .和cd ./</td>
+<td>切换到当前目录(什么事都没干)</td>
+</tr>
+<tr>
+<td>cd ..和cd ../</td>
+<td>返回到上一级目录</td>
+</tr>
+<tr>
+<td>cd ../demo</td>
+<td>指定到上一级目录下的demo文件夹</td>
+</tr>
+<tr>
+<td>cd /usr/local</td>
+<td>指定到/usr/local(绝对路径)(非常准确)</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>命令列表</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pwd</code></td>
+<td>显示当前目录的绝对路径</td>
+</tr>
+<tr>
+<td><code>ls ./</code></td>
+<td>显示当前目录的文件</td>
+</tr>
+<tr>
+<td><code>ls -l ./</code></td>
+<td>以列表形式显示文件</td>
+</tr>
+<tr>
+<td><code>ls -lh ./</code></td>
+<td>以人类友好的方式显示文件列表</td>
+</tr>
+<tr>
+<td><code>ls -A ./</code></td>
+<td>显示隐藏文件</td>
+</tr>
+<tr>
+<td><code>mkdir abc</code></td>
+<td>创建名为 <code>abc</code> 的目录</td>
+</tr>
+<tr>
+<td><code>mkdir -p a/b/c</code></td>
+<td>创建三层目录结构 <code>a/b/c</code></td>
+</tr>
+<tr>
+<td><code>touch 1.txt</code></td>
+<td>在当前目录创建1.txt</td>
+</tr>
+<tr>
+<td><code>touch a/2.txt</code></td>
+<td>指定a目录下创建2.txt</td>
+</tr>
+<tr>
+<td>tree <code>path</code></td>
+<td>以树状结构显示当前文件结构(yum install -y tree)</td>
+</tr>
+<tr>
+<td>ls -Rl</td>
+<td>以长格式查看当前文件夹下面的所有文件夹和文件</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<ul>
+<li><p>练习</p>
+<ul>
+<li><p>创建如下文件夹</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a/</span><br><span class="line">├── b/</span><br><span class="line">│   ├── d/</span><br><span class="line">│   │   ├── x</span><br><span class="line">│   │   ├── y</span><br><span class="line">│   │   └── z</span><br><span class="line">│   └── e/</span><br><span class="line">└── c/</span><br><span class="line">    ├── f/</span><br><span class="line">    │   ├── o</span><br><span class="line">    │   ├── p</span><br><span class="line">    │   └── q</span><br><span class="line">    └── g/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>d</code> 目录中创建 x, y, z 文件, 在 <code>f</code> 目录中创建 o, p, q 三个文件</p>
+</li>
+<li><p>执行:</p>
+<ol>
+<li><code>mkdir -p a/{b/{d,e},c/{f,g}}</code></li>
+<li><code>touch a/b/d/{x,y,z}</code></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="五、文件操作"><a href="#五、文件操作" class="headerlink" title="五、文件操作"></a>五、文件操作</h2><ul>
+<li><p>命令列表</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>cp aa ../bb/</code></td>
+<td>将 aa 文件复制到 ../bb 目录(备份经常使用)</td>
+</tr>
+<tr>
+<td><code>mv aa ../bb</code></td>
+<td>将 aa 文件移动到 ../ 并更名为 bb</td>
+</tr>
+<tr>
+<td><code>rm foo</code></td>
+<td>删除名为 <code>foo</code> 的文件</td>
+</tr>
+<tr>
+<td><code>touch abc</code></td>
+<td>在当前文件夹创建一个 <code>abc</code> 文件, 如果已存在则跳过</td>
+</tr>
+<tr>
+<td><code>ln -s abc def</code></td>
+<td>为 abc 文件创建一个软链接</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>cp / mv / rm 的通用参数</p>
+<ul>
+<li><p><code>-i</code>: 覆盖前提示</p>
+</li>
+<li><p><code>-n</code>: 如果目标文件已存在，则停止操作</p>
+</li>
+<li><p><code>-f</code>: 如果目标文件已存在，则强制操作，覆盖前不提示</p>
+</li>
+<li><p><code>-r</code>: 递归对文件夹执行某操作 (<code>mv</code> 不需要 <code>-r</code>)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">cp命令经常用于配置文件备份(备份文件的尾缀名一般为.bak或者.back)</span></span><br><span class="line">cp /etc/ssh/sshd_config /etc/ssh/sshd_config.back</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">对于某个软件的备份(软件都是一个文件夹)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">拷贝之前要先读取,计算机完全读取目录下的所有内容需要递归实现</span></span><br><span class="line">cp -r softwares softwares.back</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">使用cp完成修改名称</span></span><br><span class="line">cp abc/1.txt  abc/2.txt  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">rm是删除命令</span></span><br><span class="line"><span class="meta">#</span><span class="bash">-r删除目录使用的</span></span><br><span class="line"><span class="meta">#</span><span class="bash">-f强制删除不提示</span></span><br><span class="line"><span class="meta">#</span><span class="bash">删除以后不能复原</span></span><br><span class="line">rm -rf abc/1.txt</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>移动和重命名</p>
+<p>  没有专门的重命名命令，直接只用 <code>mv</code> 操作<br>  例如，将 <code>abc.txt</code> 重命名为 <code>xyz.txt</code>，则执行 <code>mv abc.txt xyz.txt</code></p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">移动文件和目录是一样</span></span><br><span class="line">mv softwares a #将softwares移动到a目录下面</span><br><span class="line"></span><br><span class="line">mv a/softwares  ./  #将a目录下的softwares移动到当前目录</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">重命名</span></span><br><span class="line">mv a abc #将a修改成abc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ln 命令详解</p>
+<ul>
+<li><p>硬链接: <code>ln 链接源文件 目标位置</code></p>
+</li>
+<li><p>只能在同分区内创建</p>
+<ul>
+<li>一个文件的多个硬链接相当于一个文件有多个名字，多个硬链接在磁盘上只占用一个文件的大小</li>
+<li>修改硬链接时，所有同源的硬链接都会发生变化</li>
+</ul>
+</li>
+<li><p>软链接: <code>ln -s 链接源文件 目标位置</code></p>
+</li>
+<li><p>可以跨越分区创建</p>
+<ul>
+<li>内部只记录目标文件的路径，类似于 Windows 下的 “快捷方式”</li>
+<li>通过软链接修改文件，源文件也会发生修改</li>
+<li>如果原文件被删除,那么链接失效</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">硬链接：</span><br><span class="line"><span class="meta">#</span><span class="bash">demo.txt = /usr/<span class="built_in">local</span>/de.txt = 同一段内容</span></span><br><span class="line"><span class="meta">#</span><span class="bash">如果任意修改其中的一个文件内容，都会改变</span></span><br><span class="line"><span class="meta">#</span><span class="bash">任意删除其中一个文件,不会对另一个产生影响</span></span><br><span class="line">ln demo.txt /usr/local/de.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">软连接：</span><br><span class="line"><span class="meta">#</span><span class="bash">&#123;/usr/<span class="built_in">local</span>/de.txt:demo.txt&#125;值被删除key失效</span></span><br><span class="line"><span class="meta">#</span><span class="bash">demo.txt  映射 /usr/<span class="built_in">local</span>/de.txt中</span></span><br><span class="line"><span class="meta">#</span><span class="bash">如果源文件被删除,那么映射对象也会失效</span></span><br><span class="line">ln -s demo.txt /usr/local/de.txt</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="六、压缩文件处理"><a href="#六、压缩文件处理" class="headerlink" title="六、压缩文件处理"></a>六、压缩文件处理</h2><ul>
+<li><p>tar</p>
+<ul>
+<li><p>归档:<code>tar -cvf ./all.tar ./</code>把当前所有文件归档</p>
+</li>
+<li><p>解归档: <code>tar -xvf all.tar</code></p>
+</li>
+<li><p>压缩: <code>tar -zcf abc.tar.gz abc/</code></p>
+</li>
+<li><p>解压: <code>tar -xzf abc.tar.gz</code></p>
+</li>
+<li><p>参数详解</p>
+<ul>
+<li><code>-c</code>: 创建压缩包</li>
+<li><code>-x</code>: 执行解压缩</li>
+</ul>
+</li>
+<li><p><code>-z</code>: 使用 gzip 算法进行压缩或解压</p>
+<ul>
+<li><p><code>-f</code>: 用户指定压缩或解压缩的文件名</p>
+</li>
+<li><p><code>-v</code>:显示解压过程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">如果文件是.tar.gz解压的方式</span></span><br><span class="line">tar -xvf 文件名称</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">万能压缩法</span></span><br><span class="line"><span class="meta">#</span><span class="bash">tar命令 -cvf  和 xvf是一样</span></span><br><span class="line">tar -zcf 压缩以后的名 文件</span><br><span class="line"><span class="meta">#</span><span class="bash">压缩不一定会把文件变得更小</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>zip  </p>
+<ul>
+<li><p>压缩: <code>zip -r abc.zip abc/</code></p>
+</li>
+<li><p>解压: <code>unzip abc.zip</code></p>
+</li>
+</ul>
+</li>
+<li><p>参数详解</p>
+<pre><code>- `-r`: 用于遍历要压缩的目录
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">.zip是mac win Linux都比较通用的一种压缩格式</span></span><br><span class="line"><span class="meta">#</span><span class="bash">.rar再mac系统要购买付费软件</span></span><br><span class="line"><span class="meta">#</span><span class="bash">.tar.gz再linux中用的</span></span><br></pre></td></tr></table></figure></code></pre></li>
+<li><p>练习</p>
+<p>  将第二小节练习时创建的文件夹分别用 <code>tar</code> 和 <code>zip</code> 命令进行压缩和解压缩</p>
+</li>
+</ul>
+<h2 id="七、查找文件-find-命令"><a href="#七、查找文件-find-命令" class="headerlink" title="七、查找文件 find 命令"></a>七、查找文件 <code>find</code> 命令</h2><ol>
+<li><p>用法</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">./是当前路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash">../上一级路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash">/从根目录开始搜索(一般不建议,文件数量巨大,搜索速度慢)</span></span><br><span class="line">find 路径 参数 规则</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<pre><code>- 查找当前文件夹下全部文件: `find ./`
+- 只查找文件: `find ./ -type f`
+- 只查找目录: `find ./ -type d`
+- 只查找链接: `find ./ -type l`
+- 按名称查找: `find ./ -name &apos;*.py&apos;`
+  - `find / -name &apos;*.txt&apos;  `  
+  - `find / -name &apos;demo.*&apos;`
+  - `*`代表任意
+- 按权限查找: `find ./ -perm 0644`
+- 按大小查找: `find ./ -size +1k -size -5k`
+- 查找后删除: `find ./ -name &apos;*.log&apos; -delete`</code></pre><ol start="2">
+<li><p>练习</p>
+<ul>
+<li>查找某文件夹下所有权限为 644 ，且小于 2k 的 python 文件，并删除</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/27/02-%E5%9F%BA%E6%9C%AC%E7%9A%84Shell%E5%91%BD%E4%BB%A4/" data-id="ckd3u8kcf0000iwqj86gs0c5m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/27/hello-world/" class="article-date">
+  <time datetime="2020-07-27T01:21:24.246Z" itemprop="datePublished">2020-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/27/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/27/hello-world/" data-id="ckd3u22ww0000doqjfqgmh5tq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/27/02-%E5%9F%BA%E6%9C%AC%E7%9A%84Shell%E5%91%BD%E4%BB%A4/">02-基本的Shell命令</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/27/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
